@@ -78,7 +78,8 @@ resource "aws_rds_cluster" "this" {
       snapshot_identifier,
       master_username,
       storage_encrypted,
-      cluster_identifier]
+      cluster_identifier,
+      database_name]
   }
   storage_encrypted                   = var.storage_encrypted
   apply_immediately                   = var.apply_immediately
@@ -142,7 +143,8 @@ resource "aws_rds_cluster_instance" "this" {
   # because cluster will update them if engine version is changed
   lifecycle {
     ignore_changes = [
-      engine_version
+      engine_version,
+      cluster_identifier
     ]
   }
 
