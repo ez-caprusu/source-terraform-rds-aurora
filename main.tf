@@ -74,7 +74,11 @@ resource "aws_rds_cluster" "this" {
   vpc_security_group_ids              = compact(concat(aws_security_group.this.*.id, var.vpc_security_group_ids))
   snapshot_identifier                 = var.snapshot_identifier
   lifecycle {
-    ignore_changes = [snapshot_identifier]
+    ignore_changes = [
+      snapshot_identifier,
+      master_username,
+      storage_encrypted,
+      cluster_identifier]
   }
   storage_encrypted                   = var.storage_encrypted
   apply_immediately                   = var.apply_immediately
